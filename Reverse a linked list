@@ -1,6 +1,6 @@
 09/10/22
 
-my approach-
+***************************************************************my approach-
   ListNode* reverseList(ListNode* head) {
         
         if(head==NULL || head->next ==NULL ){
@@ -31,3 +31,34 @@ my approach-
         head=temp;
         return head;
     }
+
+
+*****************************************************better-  shorter code- covers all test cases( empty list, single element but time more than previous one)
+ListNode* reverseList(ListNode* head) {
+ListNode* curr= head;
+      ListNode* prev= NULL;
+        
+        while(curr!=NULL){
+         ListNode* temp =curr->next;
+         curr->next=prev;
+         prev=curr;
+        curr=temp;
+        }
+        
+        return prev;
+        
+        }
+        
+*************************************************************recursive approach-
+ListNode* reverseList(ListNode* head) {
+ if(head==NULL || head->next ==NULL ){
+            return head;
+        }
+        
+        ListNode* NewHead=reverseList(head->next);
+        ListNode* headNext= head->next;
+        headNext->next =head;
+        head->next=NULL;
+        return NewHead;
+        }
+        
