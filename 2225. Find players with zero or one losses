@@ -1,0 +1,47 @@
+  You are given an integer array matches where matches[i] = [winneri, loseri] indicates that the player winneri defeated player loseri in a match.
+
+Return a list answer of size 2 where:
+
+answer[0] is a list of all players that have not lost any matches.
+answer[1] is a list of all players that have lost exactly one match.
+The values in the two lists should be returned in increasing order.
+
+Note:
+
+You should only consider the players that have played at least one match.
+The testcases will be generated such that no two matches will have the same outcome.
+ 
+  
+  
+  
+  
+  
+  vector<vector<int>> findWinners(vector<vector<int>>& matches) {
+     vector<vector<int>> answer(2);
+
+        map<int,int> lost;
+        
+        for(int i=0;i<matches.size();i++){
+            lost[matches[i][1]]++;
+        }
+        
+        
+        for(int i=0;i<matches.size();i++){
+           
+             if(lost[matches[i][1]]==1){
+                 answer[1].push_back(matches[i][1]);
+            }
+            if(lost.find(matches[i][0]) == lost.end())
+            {
+               answer[0].push_back(matches[i][0]);
+                lost[matches[i][0]]=-1;
+            }
+        }
+        
+        
+     
+        // map mein sirf vohi log honge  jinhone at least ek match haara
+        sort(begin(answer[0]), end(answer[0]));
+        sort(begin(answer[1]), end(answer[1]));
+     return answer;   
+    } 
