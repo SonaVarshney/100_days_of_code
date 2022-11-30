@@ -1,0 +1,24 @@
+ceil is either equal the root value or the next greatest root value
+
+int findCeil(BinaryTreeNode<int> *root, int key){
+
+	int ceil = -1; 
+    while (root) {
+
+        if (root->data == key) {
+            ceil = root->data;
+            return ceil;
+        }
+ 
+        if (key > root->data) {
+            root = root->right;
+        }
+        
+        // humesha left mein jaate vakt kisi bhi root ka greater element mil sakta hai in bst
+        else {
+            ceil = root->data; 
+            root = root->left;
+        }
+    }
+    return ceil; 
+}
