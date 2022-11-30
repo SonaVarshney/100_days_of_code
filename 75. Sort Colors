@@ -1,0 +1,47 @@
+https://leetcode.com/problems/sort-colors/
+
+Given an array nums with n objects colored red, white, or blue, sort them in-place so that objects of the same color are adjacent, with the colors in the order red, white, and blue.
+
+We will use the integers 0, 1, and 2 to represent the color red, white, and blue, respectively.
+
+You must solve this problem without using the library's sort function.
+
+
+APPROACH 1- sort using any sorting algo- TC O(NlogN) SC O(1);
+
+approach 2: count all zeroes ones and two and then fill the array with zero then 1 and then 2 corresponding to the frequency - TC -O(2N) ek baar poori array traverse for count and second time filling ke liye.
+
+approach 3: dutch national flag algo-
+isme three pointers use and low and mid at 0 index and high at last
+aim is to make - 0....low-1 tak 0
+                 low.......high tak 1
+                 and high se n-1 tak 2
+                 mid is used for checking ki kahi mid high se aage toh nahi nikal gaya
+                 that is the condition for while loop
+                 
+void sortColors(vector<int>& nums) {                 
+        int lo = 0; 
+        int hi = nums.size() - 1; 
+        int mid = 0; 
+
+        while (mid <= hi) { 
+            switch (nums[mid]) { 
+
+            // If the element is 0 
+            case 0: 
+                swap(nums[lo++], nums[mid++]); 
+                break; 
+
+            // If the element is 1 . 
+            case 1: 
+                mid++; 
+                break; 
+
+            // If the element is 2 
+            case 2: 
+                swap(nums[mid], nums[hi--]); 
+                break; 
+            }
+        }
+    }
+};
