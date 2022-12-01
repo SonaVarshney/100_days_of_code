@@ -1,0 +1,29 @@
+APPROACH-
+1) 1st see if root id greater than or less than node value
+2)if greater toh vo floor nahi ho sakti
+3) toh go to left and  ab uske righmost mein jao cuz vo right most sabse bada hoga and keep storing floor value while going right 
+agar ussi node ki value ya par pohoch JAAYE TOH return that and agar null mil jaaye toh return the floor that was stored
+
+
+
+
+int floorInBST(TreeNode<int> * root, int X)
+{
+    int floor;
+    while(root){  
+       if(root->val==X){
+       return root->val; 
+    }
+    else if( root->val>X){
+        root=root->left;
+       
+    }
+    else{
+        floor=root->val;
+        root=root->right;
+    }
+    }
+
+    return floor;
+    // Write your code here.
+}
