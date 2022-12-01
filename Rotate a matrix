@@ -1,0 +1,67 @@
+rotate by 90 degree
+
+
+1 2 3            7 4 1
+4 5 6    ->      8 5 2
+7 8 9            9 6 3
+
+
+1st approach- to use another matrix- take 1st row, put it in last column,
+take second row, put it in 2nd last column
+tale 3 rd row put itt in 3 rd last column
+
+T.C. - O(N2)
+to linearly iterate 1 st matrix , then copy
+S.C. O(N2)
+
+
+2nd approach- inplace
+transpose make in 1st step
+i.e 1 4 7
+    2 5 8
+    3 6 9
+    
+then reverse every row of matrix
+T.C. -O(2N2)
+S.C. -O(1)
+
+
+ void rotate(vector<vector<int>>& matrix) {
+        //take transpose of matrix and swap columns
+        int n= matrix.size();
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                if(i<j)           //transpose
+                swap(matrix[i][j],matrix[j][i]);
+            }
+        }
+        int k=0,p=matrix.size()-1;
+        
+        while(k<p){
+            for(int m=0;m<n;m++){
+              swap(matrix[m][k],matrix[m][p]) ; 
+            }
+            k++;
+            p--;
+        }
+        
+      // 1)transpose
+       //    2)then reverse row
+    }
+    
+    
+    **********************OR
+    void rotate(vector < vector < int >> & matrix) {
+  int n = matrix.size();
+  //transposing the matrix
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < i; j++) {
+      swap(matrix[i][j], matrix[j][i]);
+    }
+  }
+  //reversing each row of the matrix
+  for (int i = 0; i < n; i++) {
+    reverse(matrix[i].begin(), matrix[i].end());
+  }
+}
+
