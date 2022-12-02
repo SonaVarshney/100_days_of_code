@@ -1,0 +1,76 @@
+Two strings are considered close if you can attain one from the other using the following operations:
+
+Operation 1: Swap any two existing characters.
+For example, abcde -> aecdb
+Operation 2: Transform every occurrence of one existing character into another existing character, and do the same with the other character.
+For example, aacabb -> bbcbaa (all a's turn into b's, and all b's turn into a's)
+You can use the operations on either string as many times as necessary.
+
+Given two strings, word1 and word2, return true if word1 and word2 are close, and false otherwise.
+
+
+Eg abc -> bca
+               pehle swap ab in abc ->gives bac
+               now swap ac -> bca
+               return true
+   a->aa      
+              return false
+   
+   cabbba ->abbccc
+freq LHS      c->1
+              a->2 
+              b->3
+              
+freq RHS      a->1
+              b->2 
+              c->3      
+              
+              as b a ki frequency le lega,c fir a ki le lega frequency
+    return true, isme same freq hi sirf matter nahi, but same alphabets ho yeh bhi matter karta hai
+    
+    
+    
+    eg- xxbbxzz   -> bbbzzyy
+         isme alphabets hi alag hain, but frequency same hai
+         false hi hoga
+    
+    
+    
+    
+       // condition1 : we need the size of both strings to be same
+       // condition2 : we need freq of char in strings to be same, irrespective of the order
+       // if above 2 conditions are satisfied then just swapping will get us the word2 from word1
+       
+       
+       
+       Algo- 4 vectors banao (26 size represnts from a to z)
+             iterate over word1- s1 stores ki kis letter ki kitni frequency hai
+                                 s3 stores ki kaun kaun se letters present hai in the  string
+             iterate over word2- s2 stores ki kis letter ki kitni frequency hai
+                                 s4 stores ki kaun kaun se letters present hai in the  string
+                                 
+                                 uske baad sort kardo s1 and s2 agar jaise same frequencies hui bhakle hi kisi bhi letter ki ho and and agar alphabets in the strings bhi same ho toh then returns true
+       
+       
+       
+       
+       initialise vectors with 0
+       
+       
+        bool closeStrings(string word1, string word2) {
+
+         vector<int>s1(26,0),s2(26,0),s3(26,0),s4(26,0);
+      for(auto x:word1)
+      {
+          s1[x-'a']++;
+          s3[x-'a'] = 1;
+      }
+      for(auto x:word2)
+      {
+          s2[x-'a']++;
+          s4[x-'a'] = 1;
+      }
+     sort(s1.begin(),s1.end());
+     sort(s2.begin(),s2.end());
+     return s1 == s2 && s3 == s4;
+    }
