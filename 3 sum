@@ -1,0 +1,67 @@
+a+b+c=0
+b+c=0-a
+a fix kar liya
+toh 3 sum brought down to two sum 
+
+1) step 1 - sort array
+2) fix a
+3) bachi hui search space mein b,c find. using two sum method
+4) koi bhi duplicate combination aa raha hai when picking c toh skip
+5) if a bhi repeat ho jaaye toh bhi duplicate ko main function mein skip
+
+
+
+ vector<vector<int>> threeSum(vector<int>& nums) {
+        vector<vector<int>> ans;
+        sort(nums.begin(),nums.end());
+        for(int i=0;i<nums.size();i++){
+            // for loop picks a
+            // target =-a as b+c=-a
+            // skip duplicate a ke liye yeh if condition
+            if(i==0 || nums[i-1]!=nums[i]){
+                TwoSum(i+1,nums.size()-1,nums,0-nums[i],ans);
+            }
+           
+        }
+        
+        return ans;
+    }
+    
+    // i se j tak search space hai ang target =0-a
+    //now i=i+1 hogaya function mein copy hokar
+    
+    
+    void TwoSum(int i, int j,vector<int>& nums, int target, vector<vector<int>> &ans){
+    
+                  //a humare search space se pehle hoga
+        int a=nums[i-1];
+                  //until search space exhaust
+      
+        while(i<j){
+            if(nums[i]+nums[j]>target){
+                j--;
+            }
+            else if(nums[i]+nums[j]<target){
+                i++;
+            }
+            else{
+                ans.push_back({a,nums[i], nums[j]});
+                
+                //b duplicate na hua ho - uske liye check pehle toh search space exhaust na hui ho, and then i ka next wala element in nums same na ho
+                  while(i<j && nums[i+1]==nums[i]){
+                i++;
+                
+            }
+              //c duplicate na hua ho
+                  while(i<j && nums[j]==nums[j-1]){
+                j--;
+                
+            }
+         
+                i++;
+                j--;
+            }
+            
+            
+        }
+    }
