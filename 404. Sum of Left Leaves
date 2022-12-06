@@ -1,0 +1,17 @@
+void helper(TreeNode *t, int & res, int mult){
+        if(t!=NULL){
+            if(t->left == NULL && t->right == NULL){
+                res += t->val * mult;
+            }
+            helper(t->left, res, 1);
+            helper(t->right, res, 0);
+        }
+    }
+    
+    int sumOfLeftLeaves(TreeNode* root) {
+        int res = 0;
+        if(root == NULL || (root->left == NULL && root->right == NULL))
+            return res;
+        helper(root, res, 1);
+        return res;
+    }
