@@ -1,0 +1,21 @@
+Given the root node of a binary search tree and two integers low and high, return the sum of values of all nodes with a value in the inclusive range [low, high].
+
+
+//traverse with any order traversal and harr node ki value compare kar lo range ke beech mein ho tph sum mein add kar do
+
+ 
+ void Rangesum(TreeNode* root, int low, int high,int &sum){
+          if(root==NULL){
+            return;
+             }
+             if(root->val>=low && root->val<=high){
+                 sum+=root->val;
+             }
+             Rangesum(root->left,low,high,sum);
+             Rangesum(root->right,low,high,sum);
+    }
+     int rangeSumBST(TreeNode* root, int low, int high) {
+          int sum=0;
+          Rangesum(root,low,high,sum);
+         return sum;
+    }
