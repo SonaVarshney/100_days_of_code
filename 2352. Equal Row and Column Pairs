@@ -1,0 +1,56 @@
+Given a 0-indexed n x n integer matrix grid, return the number of pairs (ri, cj) such that row ri and column cj are equal.
+
+A row and column pair is considered equal if they contain the same elements in the same order (i.e., an equal array).
+
+
+Example 1:
+
+
+Input: grid = [[3,2,1],[1,7,6],[2,7,7]]
+Output: 1
+Explanation: There is 1 equal row and column pair:
+- (Row 2, Column 1): [2,7,7]
+
+Example 2:
+
+
+Input: grid = [[3,1,2,2],[1,4,4,5],[2,4,2,2],[2,4,2,2]]
+Output: 3
+Explanation: There are 3 equal row and column pairs:
+- (Row 0, Column 0): [3,1,2,2]
+- (Row 2, Column 2): [2,4,2,2]
+- (Row 3, Column 2): [2,4,2,2]
+
+
+Approach- 
+1) create a new matrix(vector of vector).
+2) create another vector for pushing pushing vectors into transpose that should be initialised inside the for loop so that it becomes empty each time.
+3) take transpose of the matrix in the new matrix created 
+4) now check row wise for both matrix that how many rows match
+ this can directly be done by comparing the vectors of each row
+ 
+ 
+   int equalPairs(vector<vector<int>>& grid) {
+        vector<vector<int>> transpose;
+        for(int i=0;i< grid.size();i++){
+            vector<int> t;
+            for(int j=0;j<grid[0].size();j++){
+                t.push_back(grid[j][i]);
+            }
+            transpose.push_back(t);
+        }
+       
+            int count=0;
+            for(int i=0;i< grid.size();i++){
+            for(int j=0;j<grid[0].size();j++){
+            if(grid[i]==transpose[j]){
+                count++;
+            }
+            }
+          
+            }
+
+         
+         return count;
+
+    }
