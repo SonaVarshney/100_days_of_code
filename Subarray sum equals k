@@ -1,0 +1,31 @@
+O(N2)=
+generate all subarrays and then maintain a count that counts all subarrays with k sum
+
+two nested loops
+
+as 10^4 constraint optimally use O(N)
+
+whenever you have to find min subarray  ya max length subarray then use sliding window
+but isme nahi
+
+here two pointer also not use because we don't have to just find a pair;
+
+
+we'll use prefix sum
+
+a  b  c  d  e  f  g  h  i 
+----x----
+---------y-----------
+
+if(y-x)=k then return the subtracted subarray
+
+
+we'll use hashmap
+
+https://www.youtube.com/watch?v=XjP2mQr98WQ
+
+1) sum=0
+2) iterate
+3) if(sum==k) count++
+4) add sum to map 
+and check sum-k is in hashmap then again count++
