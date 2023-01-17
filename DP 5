@@ -1,0 +1,22 @@
+Recursive Code DP5
+
+int sum(int * arr,int ind){
+        if(ind==0){
+            return arr[ind];
+        }
+        if(ind<0){
+            return 0;
+        }
+        int pick=arr[ind]+sum(arr,ind-2);
+        
+        int notPick=0+sum(arr,ind-1);
+        
+        return max(pick,notPick);
+        
+    }
+	// calculate the maximum sum with out adjacent
+	int findMaxSum(int *arr, int n) {
+	    // code here
+	     return sum(arr,n-1);
+	    
+	}
