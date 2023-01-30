@@ -1,0 +1,88 @@
+  recursive
+  
+  int solve(int capacity, int wt[], int val[], int index){
+        
+        if(index==0){
+            if(capacity>=wt[index]){
+                return val[index];
+            }
+            
+            else{
+                return 0;
+            }
+        }
+        int notTake= 0+solve(capacity,wt,val,index-1);
+        //jab bhi max chahiye toh initialise with int_min
+        int take=INT_MIN;
+        if(capacity>=wt[index]){
+            take=val[index]+solve(capacity-wt[index],wt,val,index-1);
+        }
+        
+        return max(take,notTake);
+    }
+    int knapSack(int W, int wt[], int val[], int n) 
+    { 
+       // Your code here
+      return solve(W,wt,val,n-1);
+    }
+    
+    
+    //tabulation
+    
+    int knapSack(int W, int wt[], int val[], int n) 
+    { 
+       // Your code here
+      vector<vector<int>> dp(n,vector<int>(W+1,0));
+ 
+    
+    //till maxweight saare 0 indexes ko val[0 se initialise] //base case
+       for(int i=wt[0];i<=W;i++){
+           
+             dp[0][i]=val[0];
+       }
+       
+       for(int i=1;i<n;i++){
+           for(int j=0;j<=W;j++){
+                int notTake= 0+dp[i-1][j];
+        
+                int take=INT_MIN;
+                if(j>=wt[i]){
+                    take=val[i]+dp[i-1][j-wt[i]];
+                }
+                
+                dp[i][j]= max(take,notTake);
+           }
+       }
+       return dp[n-1][W];
+    }
+    
+    
+    //space optimisation
+    int knapSack(int W, int wt[], int val[], int n) 
+    { 
+               // Your code here
+            //   vector<vector<int>> dp(n,vector<int>(W+1,0));
+            //   return solve(W,wt,val,n-1,dp);
+    vector<int> prev(W+1,0);
+            //till maxweight saare 0 indexes ko val[0 se initialise]
+       for(int i=wt[0];i<=W;i++){
+           
+             prev[i]=val[0];
+       }
+       
+       for(int i=1;i<n;i++){
+           vector<int> curr(W+1,0);
+           for(int j=0;j<=W;j++){
+                int notTake= 0+prev[j];
+        
+                int take=INT_MIN;
+                if(j>=wt[i]){
+                    take=val[i]+prev[j-wt[i]];
+                }
+                
+                curr[j]= max(take,notTake);
+           }
+           prev=curr;
+       }
+       return prev[W];
+    }
