@@ -1,0 +1,68 @@
+ int solve(vector<int>& coins, int amount,int index){
+
+        if(index==0){
+            if(amount%coins[0]==0){
+                return amount/coins[0];
+            }
+            else{
+                return 1e9;
+            }
+        }
+
+        int NotTake=0+solve(coins,amount,index-1);
+
+        int take=INT_MAX;
+        if(coins[index]<=amount){
+            take=1+solve(coins,amount-coins[index],index);
+        }
+        return min(take,NotTake);
+
+    }
+    int coinChange(vector<int>& coins, int amount) {
+        int n=coins.size();
+        int p=solve(coins,amount,n-1);
+        if(p==1e9){
+            return -1;
+        }
+        else{
+            return p;
+        }
+    }
+    
+    
+    //memoise
+    
+    
+     int solve(vector<int>& coins, int amount,int index, vector<vector<int>> &dp){
+
+        if(index==0){
+            if(amount%coins[0]==0){
+                return amount/coins[0];
+            }
+            else{
+                return 1e9;
+            }
+        }
+        if(dp[index][amount]!=-1){
+            return dp[index][amount];
+        }
+        int NotTake=0+solve(coins,amount,index-1,dp);
+
+        int take=INT_MAX;
+        if(coins[index]<=amount){
+            take=1+solve(coins,amount-coins[index],index,dp);
+        }
+        return dp[index][amount]=min(take,NotTake);
+
+    }
+    int coinChange(vector<int>& coins, int amount) {
+        int n=coins.size();
+        vector<vector<int>> dp(n,vector<int>(amount+1,-1));
+        int p=solve(coins,amount,n-1,dp);
+        if(p==1e9){
+            return -1;
+        }
+        else{
+            return p;
+        }
+    }
