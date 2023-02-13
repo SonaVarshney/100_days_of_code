@@ -1,0 +1,62 @@
+    int mod=1003;
+    #define ll long long int
+    ll solve(int i,int j,int isTrue,string S, vector<vector<vector<ll>>> &dp){
+        if(i>j) return 0;
+        
+        if(i==j){
+            if(isTrue){
+                return S[i]=='T';
+            }
+            else {
+                return S[i]=='F';
+                }
+        }
+        if(dp[i][j][isTrue]!=-1){
+            return dp[i][j][isTrue];
+        }
+        ll ways=0;
+        
+        for(int ind=i+1;ind<=j-1;ind+=2){
+            
+            ll LT=solve(i,ind-1,1,S,dp);
+            ll LF=solve(i,ind-1,0,S,dp);
+            ll RT=solve(ind+1,j,1,S,dp);
+            ll RF=solve(ind+1,j,0,S,dp);
+            
+            if(S[ind]=='&'){
+              
+              if(isTrue) ways=(ways+(RT*LT)%mod)%mod; 
+              
+              else{
+                  ways=(ways+(RF*LF)%mod+ (LF*RT)%mod + (RF*LT)%mod)%mod;
+              }
+            }
+            
+            else if(S[ind]=='|'){
+                  if(isTrue) ways=(ways+(RT*LT)%mod+ (LF*RT)%mod + (RF*LT)%mod )%mod;
+              
+              else{
+                  ways=(ways+(RF*LF)%mod)%mod;
+              }
+            }
+            
+             else if(S[ind]=='^'){
+             if(isTrue) ways=ways+( (LF*RT)%mod + (RF*LT)%mod )%mod;
+              
+              else{
+                  ways=(ways+(RF*LF)%mod +(RT*LT)%mod)%mod;
+              } 
+                
+            }
+            
+           
+            
+        }
+        
+         return dp[i][j][isTrue]=ways;
+    }
+    int countWays(int N, string S){
+        // code here
+        vector<vector<vector<ll>>> dp(N,vector<vector<ll>>(N,vector<ll>(2,-1)));
+        return solve(0,N-1,1,S,dp);
+    }
